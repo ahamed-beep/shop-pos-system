@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+:root {
+  --mpose-primary: #001f3f;
+  --mpose-mint: #008080;
+  --mpose-bg: #f4f4f4;
+  --mpose-dark: #001122;
+}
+
+@layer base {
+  body {
+    @apply bg-[#ffffff] text-gray-800 antialiased;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+@media print {
+  body {
+    margin: 5mm;
+    font-family: monospace;
+    font-size: 11px;
+    background: white !important;
+  }
+
+  /* Hide everything except the thermal receipt */
+  .print\:block {
+    display: block !important;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  @page {
+    size: 80mm auto;
+    margin: 0;
+    /* 🔥 This suppresses browser headers/footers */
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "name": "mobile-pos-system",
+  "version": "1.5.3",
+  "main": "electron-main/main.js",
+  "author": "Mobile POS Engine",
+  "scripts": {
+    "start": "electron --trace-warnings .",
+    "dev:frontend": "cd pos-frontend && npm run dev",
+    "dev": "concurrently \"npm run dev:frontend\" \"wait-on http://localhost:5173 && electron --trace-warnings .\"",
+    "server": "node -e \"require('./server/index').startServer(3000)\"",
+    "build:frontend": "cd pos-frontend && npm run build",
+    "build": "npm run build:frontend && electron-builder --win --x64"
+  },
+  "engines": {
+    "node": ">=18.0.0 <22.0.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^1.4.5-lts.1",
+    "node-machine-id": "^1.1.12",
+    "node-thermal-printer": "^4.6.0",
+    "nodemailer": "^6.9.14",
+    "sqlite3": "^5.1.6",
+    "winston": "^3.19.0",
+    "winston-daily-rotate-file": "^5.0.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5",
+    "electron": "^40.0.0",
+    "electron-builder": "^26.4.0",
+    "wait-on": "^9.1.0"
+  },
+  "build": {
+    "appId": "com.mobile.pos",
+    "productName": "Mobile POS Engine",
+    "asar": true,
+    "asarUnpack": [
+      "**/node_modules/sqlite3/**/*"
+    ],
+    "files": [
+      "electron-main/**/*",
+      "server/**/*",
+      "pos-frontend/dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.ico",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "runAfterFinish": true
+    }
+  }
+}

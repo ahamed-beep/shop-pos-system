@@ -1,0 +1,8 @@
+dist/win-unpacked
+node_modules
+.env
+server/user-data/
+server/logs
+user-data
+dist
+build
